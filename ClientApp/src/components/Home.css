@@ -7,7 +7,6 @@ html {
 }
 
 body {
-    zoom: 125%;
     background-color: #fefbf3;
     background-image: repeating-linear-gradient(45deg, rgba(169, 169, 169, 0), rgba(169, 169, 169, 0.1) 0.5px, transparent 5px, transparent 1px), repeating-linear-gradient(135deg, rgba(211, 211, 211, 0.1), rgba(211, 211, 211, 0.1) 0.5px, transparent 5px, transparent 5px);
     border-style: solid;

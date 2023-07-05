@@ -81,7 +81,7 @@ export class Home extends Component {
 
         let textViewerPage = (
             <div className="poem">
-                {loading ? (//TODO: Add waiting icon instead?
+                {loading ? (
                     <p style={{ color: '#00000059' }}>Within this fleeting moment, I shall birth a universe of words... Please allow me to think...</p>
                 ) : (
                     <div>
@@ -103,7 +103,6 @@ export class Home extends Component {
                     <label class="grow" htmlFor="upload" style={{
                         display: 'inline-block',
                         padding: '10px 20px',
-                        //background: '#00000005',
                         color: 'black',
                         border: 'none',
                         borderRadius: '5px',
