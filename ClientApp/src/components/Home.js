@@ -46,7 +46,7 @@ export class Home extends Component {
     };
 
     uploadImage = async (imageData) => {
-        const response = await fetch('imageanalysis', {
+        const response = await fetch('poems/generate', {
             method: 'POST',
             body: imageData,
             headers: {
