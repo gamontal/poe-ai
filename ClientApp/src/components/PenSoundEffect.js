@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import writingSound from './pen_writing_1.mp3';
 
-const Typewriter = ({ text }) => {
+const PenSoundEffect = ({ text }) => {
     const [currentText, setCurrentText] = useState('');
     const [currentIndex, setCurrentIndex] = useState(0);
     const [audio] = useState(new Audio(writingSound));
@@ -25,4 +25,4 @@ const Typewriter = ({ text }) => {
     return <div dangerouslySetInnerHTML={{ __html: currentText.replace(/\n/g, '<br/>') }}></div>;
 };
 
-export default Typewriter;
+export default PenSoundEffect;

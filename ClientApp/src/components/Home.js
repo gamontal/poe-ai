@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Typewriter from './Typewriter';
+import PenSoundEffect from './PenSoundEffect';
 import './Home.css';
 
 export class Home extends Component {
@@ -83,7 +83,7 @@ export class Home extends Component {
                     <p style={{ color: '#00000059' }}>Within this fleeting moment, I shall birth a universe of words... Please allow me to think...</p>
                 ) : (
                     <div>
-                        <Typewriter text={textData.replace(/^\n\n/, '')} />
+                        <PenSoundEffect text={textData.replace(/^\n\n/, '')} />
                     </div>
                 )}
             </div>
