@@ -19,9 +19,7 @@ public class PoemGeneratorService : IPoemGeneratorService
 	public async Task<string?> GeneratePoemFromImageAsync(MemoryStream imageStream)
 	{
 		var imageDescription = await _imageProcessorService.GetImageDescriptionAsync(imageStream);
-
-		var prompt = $"Compose evocative and imaginative poems for the provided scenes. Capture the essence of each moment with vivid language and creative flair. Keep in mind that each poem should consist of up to three stanzas. {imageDescription} For each scene, envision the emotions, details, and stories that unfold. Let your creativity flow within the confines of three stanzas, and transport us into these captivating moments.";
-		var poem = await _openAiClient.GetCompletion(prompt);
+		var poem = await _openAiClient.GetTextCompletion("You are a poet, weaving emotions into words.", $"Compose an evocative and imaginative poem for the provided scenes. Capture the essence of each moment with vivid language and creative flair. {imageDescription} For each scene, envision the emotions, details, and stories that unfold. Include the title of the poem at the beginning. Ensure that the poem follows this specific structure:\n\n[Your Title]\n\n[Your poetic lines]\n\n[More expressive lines]\n\n[Concluding lines]\n\nPlease note: Your poem must consist of exactly three stanzas.\n\nLet your creativity flow, but remember to adhere to this structure. Transport us into these captivating moments with your verses.");
 
 		return poem;
 	}

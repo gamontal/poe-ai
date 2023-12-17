@@ -21,57 +21,79 @@ public class OpenAIClient
         _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_openAiConfig.Key}");
     }
 
-    public async Task<string?> GetCompletion(
+    public async Task<string?> GetTextCompletion(
+		string metaPrompt,
 		string prompt,
-		string model = "text-davinci-003",
-		float temperature = 0,
-		int maxTokens = 150)
+		string model = "gpt-4",
+		float temperature = 0.7f,
+		int maxTokens = 300)
     {
-		var completionRequest = new StringContent(
-			JsonConvert.SerializeObject(new OpenAiCompletionRequest
+		var messages = new List<ChatMessage>
+		{
+			new()
 			{
-				Model = model,
-				Prompt = prompt,
-				Temperature = temperature,
-				MaxTokens = maxTokens
-			}),
-			Encoding.UTF8,
-			"application/json");
+				Role = "system",
+				Content = metaPrompt
+			},
+			new()
+			{
+				Role = "user",
+				Content = prompt
+			}
+		};
 
-		var completionResponse = await _httpClient.PostAsync("completions", completionRequest);
+		var completionRequest = JsonConvert.SerializeObject(new ChatCompletionRequest
+		{
+			Model = model,
+			Messages = messages,
+			Temperature = temperature,
+			MaxTokens = maxTokens
+		});
+
+		var completionResponse = await _httpClient.PostAsync(
+			"chat/completions",
+			new StringContent(
+				completionRequest,
+				Encoding.UTF8,
+				"application/json"));
 
 		completionResponse.EnsureSuccessStatusCode();
 
 		var completionResponseContent = await completionResponse.Content.ReadAsStringAsync();
 
-		var completion = JsonConvert.DeserializeObject<OpenAiCompletionResponse>(completionResponseContent);
-		var completionText = completion?.Choices.FirstOrDefault()?.Text;
+		var completion = JsonConvert.DeserializeObject<ChatCompletionResponse>(completionResponseContent);
+		var completionText = completion?.Choices.FirstOrDefault()?.Message.Content;
 
 		return completionText;
     }
 
-	public class OpenAiCompletionRequest
+	public class ChatCompletionRequest
 	{
 		[JsonProperty("model")]
 		public string Model { get; set; }
-
-		[JsonProperty("prompt")]
-		public string Prompt { get; set; }
-
+		[JsonProperty("messages")]
+		public IList<ChatMessage> Messages { get; set; }
 		[JsonProperty("temperature")]
 		public float Temperature { get; set; }
-
 		[JsonProperty("max_tokens")]
 		public int MaxTokens { get; set; }
 	}
 
-	public class OpenAiCompletionResponseChoice
+	public class ChatCompletionResponse
 	{
-		public string Text { get; set; }
+		public List<ChatCompletionResponseChoice> Choices { get; set; }
 	}
 
-	public class OpenAiCompletionResponse
+	public class ChatCompletionResponseChoice
 	{
-		public List<OpenAiCompletionResponseChoice> Choices { get; set; }
+		public ChatMessage Message { get; set; }
+	}
+
+	public class ChatMessage
+	{
+		[JsonProperty("role")]
+		public string Role { get; set; }
+		[JsonProperty("content")]
+		public string Content { get; set; }
 	}
 }
