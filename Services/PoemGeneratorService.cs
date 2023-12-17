@@ -1,7 +1,7 @@
-﻿using SnapPoet.Clients;
-using SnapPoet.Services.Interfaces;
+﻿using PoeThePoet.Clients;
+using PoeThePoet.Services.Interfaces;
 
-namespace SnapPoet.Services;
+namespace PoeThePoet.Services;
 
 public class PoemGeneratorService : IPoemGeneratorService
 {

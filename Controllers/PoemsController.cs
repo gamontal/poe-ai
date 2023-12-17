@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SnapPoet.Services.Interfaces;
+using PoeThePoet.Services.Interfaces;
 
-namespace SnapPoet.Controllers;
+namespace PoeThePoet.Controllers;
 
 [ApiController]
 [Route("[controller]")]

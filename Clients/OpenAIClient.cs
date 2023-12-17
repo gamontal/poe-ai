@@ -1,33 +1,33 @@
 ﻿using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using SnapPoet.Models.Configurations;
+using PoeThePoet.Models.Configurations;
 using System.Text;
 
-namespace SnapPoet.Clients;
+namespace PoeThePoet.Clients;
 
 public class OpenAIClient
 {
-    private readonly OpenAIConfig _openAiConfig;
-    private readonly HttpClient _httpClient;
+	private readonly OpenAIConfig _openAiConfig;
+	private readonly HttpClient _httpClient;
 
-    public OpenAIClient(
-        IOptions<OpenAIConfig> openAiConfig,
-        HttpClient httpClient)
-    {
-        _openAiConfig = openAiConfig.Value;
+	public OpenAIClient(
+		IOptions<OpenAIConfig> openAiConfig,
+		HttpClient httpClient)
+	{
+		_openAiConfig = openAiConfig.Value;
 
-        _httpClient = httpClient;
-        _httpClient.BaseAddress = new Uri(_openAiConfig.Endpoint);
-        _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_openAiConfig.Key}");
-    }
+		_httpClient = httpClient;
+		_httpClient.BaseAddress = new Uri(_openAiConfig.Endpoint);
+		_httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_openAiConfig.Key}");
+	}
 
-    public async Task<string?> GetTextCompletion(
+	public async Task<string?> GetTextCompletion(
 		string metaPrompt,
 		string prompt,
 		string model = "gpt-4",
 		float temperature = 0.7f,
 		int maxTokens = 300)
-    {
+	{
 		var messages = new List<ChatMessage>
 		{
 			new()
@@ -65,7 +65,7 @@ public class OpenAIClient
 		var completionText = completion?.Choices.FirstOrDefault()?.Message.Content;
 
 		return completionText;
-    }
+	}
 
 	public class ChatCompletionRequest
 	{

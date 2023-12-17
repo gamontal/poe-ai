@@ -1,8 +1,8 @@
-﻿using SnapPoet.Clients;
-using SnapPoet.Services.Interfaces;
+﻿using PoeThePoet.Clients;
+using PoeThePoet.Services.Interfaces;
 using System.Text;
 
-namespace SnapPoet.Services;
+namespace PoeThePoet.Services;
 
 public class ImageProcessorService : IImageProcessorService
 {
@@ -24,7 +24,7 @@ public class ImageProcessorService : IImageProcessorService
 			foreach (var value in imageCaptions.DenseCaptionsResult.Values)
 				imageDescription.AppendLine($"{value.Text}");
 		}
-		
+
 		return imageDescription.ToString().Trim();
 	}
 }

@@ -1,4 +1,4 @@
-﻿namespace SnapPoet.Services.Interfaces;
+﻿namespace PoeThePoet.Services.Interfaces;
 
 public interface IPoemGeneratorService
 {
