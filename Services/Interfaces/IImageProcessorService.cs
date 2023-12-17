@@ -1,6 +1,6 @@
-﻿namespace SnapPoet.Services.Interfaces;
+﻿namespace PoeThePoet.Services.Interfaces;
 
 public interface IImageProcessorService
 {
-    Task<string> GetImageDescriptionAsync(MemoryStream imageStream);
+	Task<string> GetImageDescriptionAsync(MemoryStream imageStream);
 }

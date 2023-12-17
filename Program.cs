@@ -1,7 +1,7 @@
-using SnapPoet.Clients;
-using SnapPoet.Models.Configurations;
-using SnapPoet.Services;
-using SnapPoet.Services.Interfaces;
+using PoeThePoet.Clients;
+using PoeThePoet.Models.Configurations;
+using PoeThePoet.Services;
+using PoeThePoet.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

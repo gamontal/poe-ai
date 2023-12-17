@@ -1,4 +1,4 @@
-﻿namespace SnapPoet.Models.Configurations;
+﻿namespace PoeThePoet.Models.Configurations;
 
 public class OpenAIConfig
 {
