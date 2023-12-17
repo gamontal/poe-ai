@@ -1,15 +1,15 @@
-﻿using PoeThePoet.Clients;
+﻿using PoeThePoet.Clients.Interfaces;
 using PoeThePoet.Services.Interfaces;
 
 namespace PoeThePoet.Services;
 
 public class PoemGeneratorService : IPoemGeneratorService
 {
-	private readonly OpenAIClient _openAiClient;
+	private readonly IOpenAIClient _openAiClient;
 	private readonly IImageProcessorService _imageProcessorService;
 
 	public PoemGeneratorService(
-		OpenAIClient openAiClient,
+		IOpenAIClient openAiClient,
 		IImageProcessorService imageProcessorService)
 	{
 		_openAiClient = openAiClient;

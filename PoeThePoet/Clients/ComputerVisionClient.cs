@@ -1,11 +1,9 @@
-﻿using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
+﻿using PoeThePoet.Clients.Interfaces;
 using PoeThePoet.Models.Configurations;
-using System.Net.Http.Headers;
 
 namespace PoeThePoet.Clients;
 
-public class ComputerVisionClient
+public class ComputerVisionClient : IComputerVisionClient
 {
 	private readonly AzureAIConfig _azureAiConfig;
 	private readonly HttpClient _httpClient;

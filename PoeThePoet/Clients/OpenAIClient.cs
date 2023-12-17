@@ -1,11 +1,9 @@
-﻿using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
+﻿using PoeThePoet.Clients.Interfaces;
 using PoeThePoet.Models.Configurations;
-using System.Text;
 
 namespace PoeThePoet.Clients;
 
-public class OpenAIClient
+public class OpenAIClient : IOpenAIClient
 {
 	private readonly OpenAIConfig _openAiConfig;
 	private readonly HttpClient _httpClient;

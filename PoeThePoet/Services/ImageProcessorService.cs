@@ -1,15 +1,14 @@
-﻿using PoeThePoet.Clients;
+﻿using PoeThePoet.Clients.Interfaces;
 using PoeThePoet.Services.Interfaces;
-using System.Text;
 
 namespace PoeThePoet.Services;
 
 public class ImageProcessorService : IImageProcessorService
 {
-	private readonly ComputerVisionClient _computerVisionClient;
+	private readonly IComputerVisionClient _computerVisionClient;
 
 	public ImageProcessorService(
-		ComputerVisionClient computerVisionClient)
+		IComputerVisionClient computerVisionClient)
 	{
 		_computerVisionClient = computerVisionClient;
 	}

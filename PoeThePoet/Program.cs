@@ -1,4 +1,5 @@
 using PoeThePoet.Clients;
+using PoeThePoet.Clients.Interfaces;
 using PoeThePoet.Models.Configurations;
 using PoeThePoet.Services;
 using PoeThePoet.Services.Interfaces;
@@ -12,8 +13,8 @@ builder.Services.AddOptions<AzureAIConfig>()
 builder.Services.AddOptions<OpenAIConfig>()
 	.Configure<IConfiguration>((settings, configuration) => configuration.GetSection("OpenAI").Bind(settings));
 
-builder.Services.AddHttpClient<ComputerVisionClient>();
-builder.Services.AddHttpClient<OpenAIClient>();
+builder.Services.AddHttpClient<IComputerVisionClient, ComputerVisionClient>();
+builder.Services.AddHttpClient<IOpenAIClient, OpenAIClient>();
 
 builder.Services.AddSingleton<IImageProcessorService, ImageProcessorService>();
 builder.Services.AddSingleton<IPoemGeneratorService, PoemGeneratorService>();
