@@ -5,18 +5,15 @@ import './Home.css';
 export class Home extends Component {
     static displayName = Home.name;
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            imageUploaded: false,
-            imageUrl: '',
-            loading: false,
-            textData: '',
-            fileName: '',
-        };
-    }
+    state = {
+        imageUploaded: false,
+        imageUrl: '',
+        loading: false,
+        textData: '',
+        fileName: '',
+    };
 
-    handleImageUpload = (event) => {
+    handleImageUpload = async (event) => {
         const file = event.target.files[0];
 
         if (file && file.type.startsWith('image/')) {
@@ -24,20 +21,16 @@ export class Home extends Component {
             reader.onloadend = () => {
                 const imageDataUrl = URL.createObjectURL(file);
                 const fileName = file.name.split('.').slice(0, -1).join('.');
-                this.setState(
-                    {
-                        imageUploaded: true,
-                        imageUrl: imageDataUrl,
-                        loading: true,
-                        fadeIn: false,
-                        fileName: fileName,
-                    },
-                    () => {
-                        setTimeout(() => {
-                            this.uploadImage(reader.result);
-                        }, 1000);
-                    }
-                );
+                this.setState({
+                    imageUploaded: true,
+                    imageUrl: imageDataUrl,
+                    loading: true,
+                    fileName: fileName,
+                }, () => {
+                    setTimeout(() => {
+                        this.uploadImage(reader.result);
+                    }, 1000);
+                });
             };
             reader.readAsArrayBuffer(file);
         } else {
@@ -46,19 +39,24 @@ export class Home extends Component {
     };
 
     uploadImage = async (imageData) => {
-        const response = await fetch('poems/generate', {
-            method: 'POST',
-            body: imageData,
-            headers: {
-                'Content-Type': 'application/octet-stream'
-            }
-        });
+        try {
+            const response = await fetch('poems/generate', {
+                method: 'POST',
+                body: imageData,
+                headers: {
+                    'Content-Type': 'application/octet-stream'
+                }
+            });
 
-        if (response.ok) {
-            const textData = await response.text();
-            this.setState({ textData, loading: false });
-        } else {
-            console.error('Error uploading image');
+            if (response.ok) {
+                const textData = await response.text();
+                this.setState({ textData, loading: false });
+            } else {
+                console.error('Error uploading image');
+                this.setState({ loading: false });
+            }
+        } catch (error) {
+            console.error('Error uploading image', error);
             this.setState({ loading: false });
         }
     };
@@ -66,20 +64,20 @@ export class Home extends Component {
     render() {
         const { imageUploaded, imageUrl, loading, textData, fileName } = this.state;
 
-        let imageViewerPage = (
+        const imageViewerPage = (
             <div className={`image ${imageUploaded ? 'fade-in' : ''}`}>
-                {imageUploaded ? (
-                    <div class="img-tape img-tape--1">
+                {imageUploaded && (
+                    <div className="img-tape img-tape--1">
                         <div className="image-card">
                             <img src={imageUrl} alt="Uploaded" style={{ maxWidth: '100%' }} />
-                            <div className="caption">{fileName}</div> {/* Add this line */}
+                            <div className="caption">{fileName}</div>
                         </div>
                     </div>
-                ) : null}
+                )}
             </div>
         );
 
-        let textViewerPage = (
+        const textViewerPage = (
             <div className="poem">
                 {loading ? (
                     <p style={{ color: '#00000059' }}>Within this fleeting moment, I shall birth a universe of words... Please allow me to think...</p>
@@ -100,7 +98,7 @@ export class Home extends Component {
                     </div>
                 </div>
                 <div style={{ paddingTop: '30px', paddingBottom: '20px', textAlign: 'center' }}>
-                    <label class="grow" htmlFor="upload" style={{
+                    <label className="grow" htmlFor="upload" style={{
                         display: 'inline-block',
                         padding: '10px 20px',
                         color: 'black',
@@ -109,9 +107,9 @@ export class Home extends Component {
                         fontSize: '16px',
                         cursor: 'pointer',
                     }}>
-                        <span class="image-upload-btn shiny-text">Inspire me with an image</span>
+                        <span className="image-upload-btn shiny-text">Inspire me with an image</span>
                         <img src={require('./quill-icon.png')} alt="Upload" style={{ marginLeft: '5px', height: '35px', width: '35px' }} />
-                        
+
                         <input
                             type="file"
                             id="upload"
@@ -127,9 +125,6 @@ export class Home extends Component {
                     {imageViewerPage}
                     {textViewerPage}
                 </div>
-                <footer style={{ position: 'fixed', bottom: '0', left: '0', width: '100%', textAlign: 'center', padding: '7px', backgroundColor: 'black', color: 'white', fontSize: '12px' }}>
-                    Powered by Azure Cognitive Services and OpenAI GPT-3
-                </footer>
             </div>
         );
     }

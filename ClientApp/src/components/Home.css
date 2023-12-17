@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Marck+Script&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Nothing+You+Could+Do');
 
-html {
+html, body {
     height: 100%;
 }
 
@@ -11,51 +11,44 @@ body {
     background-image: repeating-linear-gradient(45deg, rgba(169, 169, 169, 0), rgba(169, 169, 169, 0.1) 0.5px, transparent 5px, transparent 1px), repeating-linear-gradient(135deg, rgba(211, 211, 211, 0.1), rgba(211, 211, 211, 0.1) 0.5px, transparent 5px, transparent 5px);
     border-style: solid;
     border-width: 30px;
-    border-bottom-width: 0px;
     border-color: black;
-    height: 100%;
 }
 
-.title {
+.title, .poem {
     transition-property: opacity, transform;
     font-weight: 400;
     font-style: normal;
     font-stretch: normal;
     font-optical-sizing: auto;
     opacity: 1;
-    color: black;
-    font-family: 'Poiret One', cursive;
     line-height: initial;
     transition-duration: 350ms;
+}
+
+.title {
+    color: black;
+    font-family: 'Poiret One', cursive;
     padding: 10px;
     display: inline-block;
     margin-top: 10px;
 }
 
 .poem {
-    transition-property: opacity, transform;
-    font-weight: 400;
-    font-style: normal;
     font-size: x-large;
-    font-stretch: normal;
-    font-optical-sizing: auto;
-    opacity: 1;
     font-family: 'Marck Script', cursive;
-    line-height: initial;
-    transition-duration: 350ms;
     padding-top: 20px;
     padding-left: 50px;
 }
 
 .image {
     display: flex;
-    justify-content: right;
+    justify-content: flex-end;
 }
 
-.image img {
-    max-width: 100%;
-    align-self: flex-start;
-}
+    .image img {
+        max-width: 100%;
+        align-self: flex-start;
+    }
 
 .image-upload-btn {
     font-family: 'Marck Script', cursive;
@@ -63,29 +56,30 @@ body {
 }
 
 .grow {
-  display: inline-block;
-  transition-duration: 0.3s;
-  transition-property: transform;
-  -webkit-tap-highlight-color: transparent;
-  transform: translateZ(0);
-  box-shadow: 0 0 1px transparent;
+    display: inline-block;
+    transition-duration: 0.3s;
+    transition-property: transform;
+    -webkit-tap-highlight-color: transparent;
+    transform: translateZ(0);
+    box-shadow: 0 0 1px transparent;
 }
 
-.grow:hover {
-  transform: scale(1.1);
-}
+    .grow:hover {
+        transform: scale(1.1);
+    }
 
 .image.fade-in {
-  animation: fade-in 0.5s ease-in;
+    animation: fade-in 0.5s ease-in;
 }
 
 @keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 .image-card {
@@ -94,36 +88,38 @@ body {
     display: inline-block;
     background-color: #fafafa;
     padding: 15px 15px 25px 15px;
-    box-shadow: 1px 1px 4px 0px #c4c4c4
+    box-shadow: 1px 1px 4px 0px #c4c4c4;
 }
 
-.image-card::before {
-    content: '';
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    height: 10px;
-    background-color: #fafafa;
-    border-radius: 5px 5px 0 0;
-}
+    .image-card::before,
+    .image-card::after {
+        content: '';
+        background-color: #fafafa;
+    }
 
-.image-card::after {
-    content: '';
-    bottom: -10px;
-    left: -10px;
-    right: -10px;
-    height: 10px;
-    background-color: #fafafa;
-    border-radius: 0 0 5px 5px;
-}
+    .image-card::before {
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        height: 10px;
+        border-radius: 5px 5px 0 0;
+    }
 
-.image-card .caption {
-    font-family: 'Nothing You Could Do', cursive;
-    font-size: 26px;
-    color: #555;
-    margin-top: 20px;
-    text-align: center;
-}
+    .image-card::after {
+        bottom: -10px;
+        left: -10px;
+        right: -10px;
+        height: 10px;
+        border-radius: 0 0 5px 5px;
+    }
+
+    .image-card .caption {
+        font-family: 'Nothing You Could Do', cursive;
+        font-size: 26px;
+        color: #555;
+        margin-top: 20px;
+        text-align: center;
+    }
 
 .shiny-text:hover {
     background-image: linear-gradient(70deg, black 44%, #FFF 51%, black 56%);
@@ -151,17 +147,17 @@ body {
     margin: 20px auto 10px;
 }
 
-.img-tape:before,
-.img-tape:after {
-    background: rgba(255, 255, 235, 0.6);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-    content: "";
-    display: block;
-    height: 30px;
-    position: absolute;
-    margin: auto;
-    width: 100px;
-}
+    .img-tape:before,
+    .img-tape:after {
+        background: rgba(255, 255, 235, 0.6);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        content: "";
+        display: block;
+        height: 30px;
+        position: absolute;
+        margin: auto;
+        width: 100px;
+    }
 
 .img-tape--1:before {
     left: 50%;
