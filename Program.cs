@@ -1,15 +1,22 @@
+using SnapPoet.Clients;
+using SnapPoet.Models.Configurations;
+using SnapPoet.Services;
+using SnapPoet.Services.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddHttpClient("ComputerVisionClient", client =>
-{
-    client.BaseAddress = new Uri("https://vision-playground-001.cognitiveservices.azure.com/");
-});
+builder.Services.AddOptions<AzureAIConfig>()
+	.Configure<IConfiguration>((settings, configuration) => configuration.GetSection("AzureAI").Bind(settings));
 
-builder.Services.AddHttpClient("OpenAiClient", client =>
-{
-    client.BaseAddress = new Uri("https://api.openai.com/v1/");
-});
+builder.Services.AddOptions<OpenAIConfig>()
+	.Configure<IConfiguration>((settings, configuration) => configuration.GetSection("OpenAI").Bind(settings));
+
+builder.Services.AddHttpClient<ComputerVisionClient>();
+builder.Services.AddHttpClient<OpenAIClient>();
+
+builder.Services.AddSingleton<IImageProcessorService, ImageProcessorService>();
+builder.Services.AddSingleton<IPoemGeneratorService, PoemGeneratorService>();
 
 builder.Services.AddControllersWithViews();
 
